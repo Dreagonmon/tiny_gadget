@@ -1,0 +1,82 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "Build",
+			"command": "make",
+			"args": [],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "GNU Make"
+		},
+		{
+			"type": "cppbuild",
+			"label": "Build and Flash",
+			"dependsOn": "${defaultBuildTask}",
+			"command": "make",
+			"args": [
+				"flash"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": {
+				"kind": "none",
+				"isDefault": true
+			},
+			"detail": "GNU Make, Openocd Flash"
+		},
+		{
+			"type": "cppbuild",
+			"label": "Flash and Start Openocd",
+			"isBackground": true,
+			"dependsOn": "Build and Flash",
+			"command": "make",
+			"args": [
+				"start_openocd"
+			],
+			"problemMatcher": [
+				{
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": ".*Open On-Chip Debugger.*",
+						"endsPattern": ".*Listening on port 3333 for gdb connections.*",
+					},
+					"pattern": {
+						"regexp": "^Error.*"
+					},
+				}
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": {
+				"kind": "none",
+				"isDefault": true
+			},
+			"detail": "GNU Make, Openocd Flash"
+		},
+		{
+			"type": "cppbuild",
+			"label": "Stop Openocd",
+			"command": "make",
+			"args": [
+				"stop_openocd"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": {
+				"kind": "none",
+				"isDefault": true
+			},
+			"detail": "GNU Make, Openocd Flash"
+		}
+	]
+}

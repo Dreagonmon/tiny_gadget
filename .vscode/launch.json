@@ -1,0 +1,41 @@
+{
+    "configurations": [
+        {
+            "name": "C/C++: opeocd调试",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "hardwareBreakpoints": {
+                "require": true
+            },
+            "setupCommands": [
+				{
+					"description": "装载文件",
+					"text": "file '${workspaceFolder}/build/ch32v003-template.elf'",
+				},
+				{
+					"text": "target remote localhost:3333"
+				},
+				{
+					"text": "monitor reset"
+				},
+				{
+					"text": "monitor halt"
+				},
+				{
+					"text": "load"
+				}
+			],
+            "preLaunchTask": "Flash and Start Openocd",
+            "postDebugTask": "Stop Openocd",
+            "program": "${workspaceFolder}/build/ch32v003-template.elf",
+            "miDebuggerPath": "/home/dreagonmon/scripts/MRS_Toolchain_Linux_x64_V1.60/RISC-V Embedded GCC/bin/riscv-none-embed-gdb",
+        }
+    ],
+    "version": "2.0.0"
+}
