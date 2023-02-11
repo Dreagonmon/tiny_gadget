@@ -3,6 +3,26 @@
 #include "sysclock.h"
 #include "keypad.h"
 #include "ssd1306.h"
+#include "ui_menu.h"
+
+
+static const StrItem items_test[] = {
+    stritem("Hello Dragon~"),
+    stritem("World Dragon!"),
+    NULL_STR_ITEM,
+};
+
+void init() {
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+    USART_Printf_Init(115200);
+    systick_init();
+    kp_init();
+    SSD1306_init();
+    SSD1306_fill_screen(SSD1306_COLOR_CLEAR);
+    SSD1306_display_on_off(1);
+    log("==== Hello ==== \n");
+    ui_list_select(stritem("Dragon"), items_test, 0);
+}
 
 /*********************************************************************
  * @fn      main
@@ -13,14 +33,7 @@
  */
 int main(void)
 {
-    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-    USART_Printf_Init(115200);
-    systick_init();
-    kp_init();
-    SSD1306_init();
-    log("==== Hello ==== \n");
-    SSD1306_fill_screen(SSD1306_COLOR_CLEAR);
-    SSD1306_display_on_off(1);
+    init();
     while (1) {
         uint8_t event = kp_query();
         uint8_t event_type = kp_Type(event);

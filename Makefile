@@ -45,7 +45,11 @@ Core/Peripheral/src/ch32v00x_wwdg.c \
 SRC/main.c \
 SRC/Drivers/SSD1306/ssd1306.c \
 SRC/Drivers/Clock/sysclock.c \
-SRC/Drivers/Keypad/keypad.c
+SRC/Drivers/Keypad/keypad.c \
+SRC/Graphic/bmfont.c \
+SRC/Graphic/asciifont.c \
+SRC/Graphic/ui_menu.c \
+SRC/Graphic/ui_utils.c
 
 ASM_SOURCES = \
 Core/Startup/startup_ch32v00x.S
@@ -57,7 +61,8 @@ C_INCLUDES = \
 -ISRC \
 -ISRC/Drivers/SSD1306 \
 -ISRC/Drivers/Clock \
--ISRC/Drivers/Keypad
+-ISRC/Drivers/Keypad \
+-ISRC/Graphic
 
 # 编译器定义
 CC = $(PREFIX)gcc
