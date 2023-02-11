@@ -1,45 +1,8 @@
-/********************************** (C) COPYRIGHT *******************************
- * File Name          : main.c
- * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2022/08/08
- * Description        : Main program body.
-*********************************************************************************
-* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-* Attention: This software (modified or not) and binary are used for 
-* microcontroller manufactured by Nanjing Qinheng Microelectronics.
-*******************************************************************************/
-
-/*
- *@Note
- GPIO routine:
- PD0 push-pull output.
-
-*/
-
 #include "debug.h"
-
-/* Global define */
-
-/* Global Variable */
-
-/*********************************************************************
- * @fn      GPIO_Toggle_INIT
- *
- * @brief   Initializes GPIOA.0
- *
- * @return  none
- */
-void GPIO_Toggle_INIT(void)
-{
-    GPIO_InitTypeDef GPIO_InitStructure = {0};
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOD, &GPIO_InitStructure);
-}
+#include "log.h"
+#include "sysclock.h"
+#include "keypad.h"
+#include "ssd1306.h"
 
 /*********************************************************************
  * @fn      main
@@ -50,19 +13,24 @@ void GPIO_Toggle_INIT(void)
  */
 int main(void)
 {
-    u8 i = 0;
-
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-    Delay_Init();
     USART_Printf_Init(115200);
-    printf("SystemClk:%d\r\n", SystemCoreClock);
-
-    printf("GPIO Toggle TEST\r\n");
-    GPIO_Toggle_INIT();
-
-    while(1)
-    {
-        Delay_Ms(250);
-        GPIO_WriteBit(GPIOD, GPIO_Pin_0, (i == 0) ? (i = Bit_SET) : (i = Bit_RESET));
-    }
+    systick_init();
+    kp_init();
+    SSD1306_init();
+    log("==== Hello ==== \n");
+    SSD1306_fill_screen(SSD1306_COLOR_CLEAR);
+    SSD1306_display_on_off(1);
+    while (1) {
+        uint8_t event = kp_query();
+        uint8_t event_type = kp_Type(event);
+        uint8_t event_value = kp_Value(event);
+        if (event_type != kp_NOP && event_type != kp_KEY_DOWN && event_type != kp_KEY_UP) {
+            log("KeyEvent: ");
+            log_unum(event_type);
+            log(" ");
+            log_unum(event_value);
+            log_ln();
+        }
+    };
 }

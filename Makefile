@@ -25,6 +25,7 @@ Core/core_riscv.c \
 Core/ch32v00x_it.c \
 Core/system_ch32v00x.c \
 Core/Debug/debug.c \
+Core/Debug/log.c \
 Core/Peripheral/src/ch32v00x_adc.c \
 Core/Peripheral/src/ch32v00x_dbgmcu.c \
 Core/Peripheral/src/ch32v00x_dma.c \
@@ -41,7 +42,10 @@ Core/Peripheral/src/ch32v00x_spi.c \
 Core/Peripheral/src/ch32v00x_tim.c \
 Core/Peripheral/src/ch32v00x_usart.c \
 Core/Peripheral/src/ch32v00x_wwdg.c \
-SRC/main.c
+SRC/main.c \
+SRC/Drivers/SSD1306/ssd1306.c \
+SRC/Drivers/Clock/sysclock.c \
+SRC/Drivers/Keypad/keypad.c
 
 ASM_SOURCES = \
 Core/Startup/startup_ch32v00x.S
@@ -50,7 +54,10 @@ C_INCLUDES = \
 -ICore \
 -ICore/Debug \
 -ICore/Peripheral/inc \
--ISRC
+-ISRC \
+-ISRC/Drivers/SSD1306 \
+-ISRC/Drivers/Clock \
+-ISRC/Drivers/Keypad
 
 # 编译器定义
 CC = $(PREFIX)gcc
