@@ -4,7 +4,6 @@
 #include "asciifont.h"
 #include "ui_menu.h"
 #include "ui_utils.h"
-#include "log.h"
 
 #define LINE_H 8
 #define LIST_PAGE_SIZE (UI_H / LINE_H)
@@ -52,12 +51,6 @@ uint8_t ui_list_select(const StrItem title, const StrItem *items, uint8_t init_i
                 }
                 tmp_pointer = U8_RESET;
             }
-        } else if (et != kp_NOP) {
-            log("Unhandled event: ");
-            log_unum(et);
-            log(" ");
-            log_unum(ev);
-            log_ln();
         }
         // render items
         if (tmp_pointer == U8_RESET) {
