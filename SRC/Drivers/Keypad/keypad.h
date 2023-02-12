@@ -3,10 +3,8 @@
 #define kp_NOP           0x0
 #define kp_KEY_DOWN      0x1
 #define kp_KEY_UP        0x2
-#define kp_ROTATE_LEFT   0x3
-#define kp_ROTATE_RIGHT  0x4
-#define kp_SHORT_CLICK   0x5
-#define kp_LONG_PRESS    0x6
+#define kp_SHORT_CLICK   0x3
+#define kp_LONG_PRESS    0x4
 
 #define kp_KUP           0x0
 #define kp_KDOWN         0x1

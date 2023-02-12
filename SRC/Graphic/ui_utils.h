@@ -22,20 +22,8 @@ typedef struct
     const uint8_t len;
 } StrItem;
 
-typedef struct
-{
-    uint8_t index;
-    uint8_t confirmed;
-} IndexResult;
-
-
-/** get string item in the list.
- * @param index item index
- * @return STR_ITEM, if STR_ITEM.len == 0 means item not exist.
- */
-typedef StrItem (*uiu_GetStrItemFunc)(uint8_t index);
-
-void uiu_title(const uint8_t *text, uint8_t len);
-
 #define stritem(x) ((StrItem){.text = (const uint8_t *)(x), .len = (uint8_t)(sizeof(x))})
 #define NULL_STR_ITEM ((StrItem){.text = NULL, .len = 0})
+
+void uiu_text_area(bmf_BitmapFont *font, const uint8_t *text, uint32_t len, uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t align, uint8_t color, uint8_t bg_color);
+void uiu_title(const uint8_t *text, uint8_t len);

@@ -7,8 +7,12 @@
 
 
 static const StrItem items_test[] = {
-    stritem("Hello Dragon~"),
-    stritem("World Dragon!"),
+    stritem("Dragon~"),
+    stritem("Kobold!"),
+    stritem("Menu"),
+    stritem("Select"),
+    stritem("What do you know?"),
+    stritem("Exit"),
     NULL_STR_ITEM,
 };
 
