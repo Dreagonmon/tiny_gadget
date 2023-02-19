@@ -49,7 +49,8 @@ SRC/Drivers/Keypad/keypad.c \
 SRC/Graphic/bmfont.c \
 SRC/Graphic/asciifont.c \
 SRC/Graphic/ui_menu.c \
-SRC/Graphic/ui_utils.c
+SRC/Graphic/ui_utils.c \
+SRC/Utils/u8str.c
 
 ASM_SOURCES = \
 Core/Startup/startup_ch32v00x.S
@@ -62,7 +63,8 @@ C_INCLUDES = \
 -ISRC/Drivers/SSD1306 \
 -ISRC/Drivers/Clock \
 -ISRC/Drivers/Keypad \
--ISRC/Graphic
+-ISRC/Graphic \
+-ISRC/Utils
 
 # 编译器定义
 CC = $(PREFIX)gcc

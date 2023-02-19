@@ -3,16 +3,18 @@
 #include "ssd1306.h"
 #include "bmfont.h"
 #include "asciifont.h"
+#include "u8str.h"
 
 #define MAX_LINES 8
 
-void uiu_text_area(bmf_BitmapFont *font, const uint8_t *text, uint32_t len, uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t align, uint8_t color, uint8_t bg_color) {
+void uiu_text_area(bmf_BitmapFont *font, U8String text, uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t align, uint8_t color, uint8_t bg_color) {
     // calc line width
     uint16_t lws[MAX_LINES];
     uint16_t gws[MAX_LINES];
     uint16_t max_width = 0;
-    uint8_t lines = 0;
     uint16_t p_off = 0;
+    uint16_t len = u8_string_size(text);
+    uint8_t lines = 0;
     while ((p_off < len) && ((lines + 1) * font->char_height <= h) && (lines < MAX_LINES)) {
         uint16_t fitlen = bmf_get_text_offset(font, text + p_off, len - p_off, w, font->char_height);
         if (fitlen == 0) {
@@ -55,8 +57,9 @@ void uiu_text_area(bmf_BitmapFont *font, const uint8_t *text, uint32_t len, uint
     SSD1306_write_area();
 }
 
-void uiu_title(const uint8_t *text, uint8_t len) {
+void uiu_title(U8String text) {
     SSD1306_alloc_area(0, 0, SSD1306_WIDTH, UI_Y);
+    uint8_t len = (uint8_t)u8_string_size(text);
     uint8_t offset_y = (UI_Y - font_quan_8x8->char_height) / 2;
     uint16_t text_w = bmf_get_text_width(font_quan_8x8, text, len);
     uint8_t offset_x = (SSD1306_WIDTH - text_w) / 2;

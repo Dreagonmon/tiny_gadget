@@ -23,7 +23,7 @@ typedef struct {
     int16_t char_y;
     uint32_t count;
     uint32_t unicode;
-    const uint8_t *utf8_text;
+    const char *utf8_text;
     uint8_t last_char_width;
     uint8_t is_looping;
 } bmf_LoopState;
@@ -34,7 +34,7 @@ void place_next_char(bmf_BitmapFont *font, bmf_LoopState *state) {
     // get unicode char
     uint32_t b_off = state->byte_offset;
     uint32_t b_lim = state->byte_limit;
-    const uint8_t *utf8_text = state->utf8_text;
+    const char *utf8_text = state->utf8_text;
     if (b_off >= b_lim) {
         state->is_looping = 0;
         state->unicode = bmf_ASCII_EOF;
@@ -94,7 +94,7 @@ void place_next_char(bmf_BitmapFont *font, bmf_LoopState *state) {
     return;
 }
 
-uint16_t bmf_get_text_width(bmf_BitmapFont *font, const uint8_t *text, uint32_t bytes_len) {
+uint16_t bmf_get_text_width(bmf_BitmapFont *font, const char *text, uint32_t bytes_len) {
     uint16_t total_width = 0;
     uint32_t b_off = 0;
     while (b_off < bytes_len) {
@@ -135,7 +135,7 @@ uint16_t bmf_get_text_width(bmf_BitmapFont *font, const uint8_t *text, uint32_t 
     return total_width;
 }
 
-uint32_t bmf_draw_text(bmf_BitmapFont *font, const uint8_t *text, uint32_t bytes_len, uint16_t x, uint16_t y, uint16_t width_limit, uint16_t height_limit, uint16_t color) {
+uint32_t bmf_draw_text(bmf_BitmapFont *font, const char *text, uint32_t bytes_len, uint16_t x, uint16_t y, uint16_t width_limit, uint16_t height_limit, uint16_t color) {
     bmf_LoopState state_obj = {bytes_len, 0, x, y, width_limit, height_limit, x, y, 0, 0, text, 0, 1};
     bmf_LoopState *state = &state_obj;
     bmf_FunctionGetCharImage get_char_image = font->get_char_image;
@@ -178,7 +178,7 @@ uint32_t bmf_draw_text(bmf_BitmapFont *font, const uint8_t *text, uint32_t bytes
     return state_obj.byte_offset;
 }
 
-uint32_t bmf_get_text_offset(bmf_BitmapFont *font, const uint8_t *text, uint32_t bytes_len, uint16_t width_limit, uint16_t height_limit) {
+uint32_t bmf_get_text_offset(bmf_BitmapFont *font, const char *text, uint32_t bytes_len, uint16_t width_limit, uint16_t height_limit) {
     bmf_LoopState state_obj = {bytes_len, 0, 0, 0, width_limit, height_limit, 0, 0, 0, 0, text, 0, 1};
     bmf_LoopState *state = &state_obj;
     while (state_obj.is_looping) {

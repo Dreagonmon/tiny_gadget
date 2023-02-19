@@ -4,17 +4,15 @@
 #include "keypad.h"
 #include "ssd1306.h"
 #include "ui_menu.h"
+#include "u8str.h"
 
-
-static const StrItem items_test[] = {
-    stritem("Dragon~"),
-    stritem("Kobold!"),
-    stritem("Menu"),
-    stritem("Select"),
-    stritem("What do you know?"),
-    stritem("Exit"),
-    NULL_STR_ITEM,
-};
+U8StringGroup items_test =
+    "Dragon~\0"
+    "Kobold~\0"
+    "Menu~\0"
+    "Select~\0"
+    "What do you know?~\0"
+    "Exit\0";
 
 void init() {
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
@@ -25,7 +23,7 @@ void init() {
     SSD1306_fill_screen(SSD1306_COLOR_CLEAR);
     SSD1306_display_on_off(1);
     log("==== Hello ==== \n");
-    ui_list_select(stritem("Dragon"), items_test, 0);
+    ui_list_select("Dragon", items_test, 0);
 }
 
 /*********************************************************************

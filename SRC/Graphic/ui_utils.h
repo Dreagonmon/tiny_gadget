@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "bmfont.h"
 #include "ssd1306.h"
+#include "u8str.h"
 
 #define uiu_ALIGN_HLEFT                0b00000001
 #define uiu_ALIGN_HCENTER              0b00000010
@@ -16,14 +17,5 @@
 #define UI_W (SSD1306_WIDTH)
 #define UI_H (SSD1306_HEIGHT - UI_Y)
 
-typedef struct
-{
-    const uint8_t *text;
-    const uint8_t len;
-} StrItem;
-
-#define stritem(x) ((StrItem){.text = (const uint8_t *)(x), .len = (uint8_t)(sizeof(x))})
-#define NULL_STR_ITEM ((StrItem){.text = NULL, .len = 0})
-
-void uiu_text_area(bmf_BitmapFont *font, const uint8_t *text, uint32_t len, uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t align, uint8_t color, uint8_t bg_color);
-void uiu_title(const uint8_t *text, uint8_t len);
+void uiu_text_area(bmf_BitmapFont *font, U8String text, uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t align, uint8_t color, uint8_t bg_color);
+void uiu_title(U8String text);
