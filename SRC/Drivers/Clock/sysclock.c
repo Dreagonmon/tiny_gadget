@@ -50,7 +50,7 @@ int32_t ticks_ms() {
 int32_t ticks_us() {
     uint32_t usec_s = usec;
     uint32_t us_offset = us_since_last_s();
-    if (usec != usec_s) return ticks_ms(); // usec changed, try again.
+    if (usec != usec_s) return ticks_us(); // usec changed, try again.
     return (usec_s + us_offset) & INT32_MAX;
 }
 
